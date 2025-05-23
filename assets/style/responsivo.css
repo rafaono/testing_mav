@@ -1,0 +1,51 @@
+/*Estilo para tablets*/
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+
+.header .topnav { background-color:#0098C9; margin-top:20px; }
+.header .topnav a { color:#FFFFFF; padding:10px; margin:0; text-transform:capitalize; }
+.header .topnav a:hover { background-color:#FFFFFF; color:#0098C9; }
+.header .topnav a.menu_ativo { color:#FFFFFF; padding:10px; margin:0; text-transform:capitalize; }
+.header .topnav a.menu_ativo:hover { color:#3E3F94; }
+
+.header img.logo { width:205px; }
+
+.icones_principal ul li { width:250px; }
+.icones_principal ul li:nth-child(2) { margin-left:5px; }
+
+} /* Final do estilo para tablets */
+
+/*Estilo para smartphone*/
+@media only screen and (max-width: 767px) {
+
+.header .topnav { background-color:#0098C9; margin-top:20px; }
+.header .topnav a { color:#FFFFFF; padding:10px; margin:0; }
+.header .topnav a:hover { background-color:#FFFFFF; color:#0098C9; }
+.header .topnav a.menu_ativo { color:#FFFFFF; background-color:#0098C9; padding:10px; margin:0; }
+.header .topnav a.menu_ativo:hover { color:#FFFFFF; background-color:#0098C9; }
+	
+.header img.logo { width:205px; }
+	
+.footer { background:none; background-color:#0098C9; height:100px; border-top:3px solid #333333; }
+.footer .info_rodape { background-color:#0098C9; margin:0; padding:0; }
+.footer img.logo { display:none; }
+.footer p { text-align:center; color:#FFFFFF; margin:0; padding:10px 0; }
+.footer address { text-align:center; }
+
+.icones_principal ul li { margin:0; padding:0; display: inline-block; width:300px; }
+.icones_principal ul li:nth-child(2) { margin:0; }
+.icones_principal ul li:nth-child(3) { float:left; margin:0; }
+
+.portfolio_interno article img { width: 275px }
+.portfolio_interno article ul li { width: 275px }
+
+.informativos_interno article img { width: 275px }
+.informativos_interno article ul li { width: 275px }
+.informativos_interno article:after { content: ""; display: block; width: 60px; height:1px; background-color:#999999; margin: 40px auto 0 auto; }
+ul.compartilhar li a.mais_info:link, ul.compartilhar li a.mais_info:visited { display:inline-block; margin-top:5px; }
+	
+.noticias_ver ul li:nth-child(1) { text-align:center; }
+.noticias_ver ul li h3 { text-align:center; }
+.noticias_ver ul li:nth-child(3) { text-align:center; }
+.noticias_ver img { width: 275px; }
+
+} /* Final do estilo para smartphone 

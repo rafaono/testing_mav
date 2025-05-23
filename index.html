@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A MAV Industrial desenvolve soluções para o ramo alimentício em aço inox. Envolvedora para líquidos e pastosos. Envolvedora de filme stretch. Elevadores pneumáticos. Esterilizadoras. Cubas Assépsia. Esteiras. Ralos. Tanques. Prateleiras. Carrinhos. Mesas.">
+        <meta property="og:description" content="A summary of your web page.">
+        <meta name="author" content="Mav Industrial">
+        <meta name="addsearch-custom-field" content="product=Envasadora para Líquidos e Pastosos">
+        <meta name="addsearch-custom-field" content="product=Envolvedora de Filme Stretch">
+        <meta name="addsearch-custom-field" content="product=Equipamentos para Ramo Alimentício">
+        <title>MAV Industrial</title>     
+        <link rel="shortcut icon" href="images/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-icons.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <link rel="stylesheet" href="components/header_nav/nav.css">
+        <link rel="stylesheet" href="components/about/about.css">
+        <link rel="stylesheet" href="components/contact/contact.css">
+        <link rel="stylesheet" href="components/products/product-grid.css">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11418933953"></script>
+        <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11418933953');</script>
+        <script src="data/products/index.js"></script>
+        <script src="components/hero/hero.js" defer></script>
+        <script src="components/header_nav/header.js" defer></script>
+        <script src="components/products/product-card.js" defer></script>
+        <script src="components/about/about.js" defer></script>
+        <script src="components/contact/contact.js" defer></script>
+    </head>
+    <body>
+        <mav-header></mav-header>
+        <mav-hero></mav-hero>
+        <mav-about></mav-about>
+
+        <main>
+            <section class="product-section" id="produtos">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>PRODUTOS</h2>
+                        </div>
+                        <product-card></product-card>
+                    </div>
+                </div>
+            </section>
+
+            <mav-contact></mav-contact>
+        </main>
+
+        <a id="wppContact" href="https://wa.me/5549988746185?text=Ol%C3%A1%2C%20encontrei%20o%20site%20de%20voc%C3%AAs%20e%20gostaria%20de%20conversar!" class="float-wpp" target="_blank">
+            <i class="bi-whatsapp wpp-float"></i>
+        </a>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/animated-headline.js"></script>
+        <script src="js/modernizr.js"></script>
+        <script src="js/custom.js"></script>
+
+        <script>
+            var wpp = document.getElementById("wppContact");
+            wpp.addEventListener("click", function(event) {
+                gtag('event', 'conversion', {'send_to': 'AW-11418933953/yFEZCM-i0fgYEMG1_MQq'});
+            });
+        </script>
+
+        <script>
+            // Função para carregar produtos em background
+            function lazyLoadProducts() {
+                console.log('🔄 Iniciando carregamento dos produtos...');
+                
+                return new Promise((resolve) => {
+                    const script = document.createElement('script');
+                    script.src = 'data/products/index.js';
+                    script.onload = () => {
+                        console.log('✨ Produtos carregados com sucesso!');
+                        localStorage.setItem('mavProducts', JSON.stringify(mavProducts));
+                        resolve();
+                    };
+                    script.onerror = () => {
+                        console.log('❌ Erro ao carregar produtos');
+                        resolve();
+                    };
+                    document.body.appendChild(script);
+                });
+            }
+
+            // Função para carregar imagens em background
+            async function preloadImages(products) {
+                console.log('🚀 Iniciando preload das imagens e modelos...');
+                
+                for (const product of products) {
+                    if (product.images?.model3d) {
+                        console.log(`🎮 Verificando modelo 3D: ${product.images.model3d}`);
+                        
+                        try {
+                            const response = await fetch(product.images.model3d, {
+                                cache: 'force-cache',
+                                headers: {
+                                    'Cache-Control': 'max-age=31536000'
+                                }
+                            });
+                            
+                            if (response.ok) {
+                                console.log(`✨ Modelo 3D carregado: ${product.images.model3d}`);
+                            } else {
+                                console.log(`⚠️ Modelo 3D não encontrado: ${product.images.model3d}`);
+                            }
+                        } catch (error) {
+                            console.log(`❌ Erro ao carregar modelo 3D: ${error}`);
+                        }
+                    }
+                }
+            }
+
+            // Inicia o lazy loading após a página carregar
+            window.addEventListener('load', async () => {
+                console.log('🎯 Iniciando lazy loading...');
+                
+                const cachedProducts = localStorage.getItem('mavProducts');
+                
+                if (!cachedProducts) {
+                    console.log('🔍 Cache não encontrado, carregando produtos...');
+                    await lazyLoadProducts();
+                } else {
+                    console.log('📋 Usando produtos do cache');
+                    window.mavProducts = JSON.parse(cachedProducts);
+                }
+
+                // Preload das imagens
+                await preloadImages(mavProducts);
+        });
+        </script>
+
+    </body>
+</html>

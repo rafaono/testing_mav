@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A MAV Industrial desenvolve soluções para o ramo alimentício em aço inox. Envolvedora para líquidos e pastosos. Envolvedora de filme stretch. Elevadores pneumáticos. Esterilizadoras. Cubas Assépsia. Esteiras. Ralos. Tanques. Prateleiras. Carrinhos. Mesas.">
+        <meta property="og:description" content="A summary of your web page.">
+        <meta name="author" content="Mav Industrial">
+        <meta name="addsearch-custom-field" content="product=Envasadora para Líquidos e Pastosos">
+        <meta name="addsearch-custom-field" content="product=Envolvedora de Filme Stretch">
+        <meta name="addsearch-custom-field" content="product=Equipamentos para Ramo Alimentício">
+        <title>MAV Industrial - Envolvedora de Filme Stretch</title>
+        <link rel="shortcut icon" href="images/favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-icons.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <link rel="stylesheet" href="components/header_nav/nav.css">
+        <script src="data/products/index.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/modernizr.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="components/header_nav/header.js" defer></script>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11418933953"></script>
+        <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11418933953');</script>
+        <link rel="stylesheet" href="components/product/product-hero.css">
+        <script src="components/product/product-hero.js" defer></script>
+        <link rel="stylesheet" href="components/contact/contact.css">
+        <script src="components/contact/contact.js" defer></script>
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    </head>
+    <body>
+        <mav-header></mav-header>
+        <main>
+            <product-hero></product-hero>
+            <mav-contact></mav-contact>
+        </main>
+
+        <script>
+            function getWhatsAppButton() {
+                const params = new URLSearchParams(window.location.search);
+                const slug = params.get('slug');
+                const product = mavProducts.find(p => p.slug === slug);
+                
+                return `
+                    <a href="https://wa.me/5549988746185?text=Olá, encontrei o site de vocês e gostaria de conversar sobre a ${encodeURIComponent(product?.name || '')}!" 
+                       class="float-wpp" 
+                       target="_blank"
+                       onclick="gtag('event', 'conversion', {'send_to': 'AW-11418933953/yFEZCM-i0fgYEMG1_MQq'});">
+                        <i class="bi-whatsapp wpp-float"></i>
+                    </a>
+                `;
+            }
+
+            document.body.insertAdjacentHTML('beforeend', getWhatsAppButton());
+        </script>
+
+        <script src="data/products/index.js"></script>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const product = mavProducts.find(p => p.slug === slug);
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Tenta pegar do cache primeiro
+                let products = window.mavProducts;
+                
+                if (!products) {
+                    // Se não tem no window, tenta do localStorage
+                    const cached = localStorage.getItem('mavProducts');
+                    if (cached) {
+                        products = JSON.parse(cached);
+                    } else {
+                        // Se não tem em lugar nenhum, redireciona pro index
+                        window.location.href = 'index.html';
+                        return;
+                    }
+                }
+
+                const params = new URLSearchParams(window.location.search);
+                const slug = params.get('slug');
+                const product = products.find(p => p.slug === slug);
+                
+                if (!product) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Atualiza título da página
+                document.title = `MAV Industrial - ${product.name}`;
+                
+                // Atualiza conteúdo
+                document.querySelectorAll('.product-name').forEach(el => el.textContent = product.name);
+                document.querySelector('.product-short-description').textContent = product.shortDescription;
+                document.querySelector('.product-full-description').textContent = product.fullDescription;
+                
+                // Atualiza imagens
+                document.querySelector('.product-image').src = product.images.thumbnail;
+                document.querySelector('.product-image').alt = product.name;
+
+                // Verifica se existe galeria antes de tentar acessar
+                const galleryElement = document.querySelector('.product-gallery');
+                if (galleryElement && product.images.gallery?.length > 0) {
+                    galleryElement.src = product.images.gallery[0];
+                }
+
+                // Atualiza especificações
+                document.querySelector('.specs-title').textContent = product.specifications.title;
+                const specsList = document.querySelector('.specs-list');
+                specsList.innerHTML = ''; // Limpa o conteúdo anterior
+                product.specifications.items.forEach(item => {
+                    specsList.innerHTML += `<p><img class="marcador" src="images/prd-marcador.svg"> ${item}</p>`;
+                });
+
+                // Atualiza componentes
+                document.querySelector('.components-title').textContent = product.components.title;
+                const componentsList = document.querySelector('.components-list');
+                componentsList.innerHTML = ''; // Limpa o conteúdo anterior
+                product.components.items.forEach(item => {
+                    componentsList.innerHTML += `<p><img class="marcador" src="images/prd-marcador.svg"> ${item}</p>`;
+                });
+
+                // Atualiza versões
+                const versionsList = document.querySelector('.versions-list');
+                versionsList.innerHTML = ''; // Limpa o conteúdo anterior
+                product.versions.forEach(version => {
+                    versionsList.innerHTML += `<p><img class="marcador" src="images/prd-marcador.svg"> ${version}</p>`;
+                });
+
+                // Se tiver vídeo, atualiza o iframe
+                if (product.video?.id) {
+                    const videoUrl = product.video.platform === 'youtube' 
+                        ? `https://www.youtube.com/embed/${product.video.id}`
+                        : product.video.url;
+                    
+                    document.querySelector('#product-video').src = videoUrl;
+                }
+
+                // Atualiza o link do WhatsApp
+                const wppLink = document.querySelector('.float-wpp');
+                wppLink.href = `https://wa.me/5549988746185?text=Olá, gostaria de solicitar um orçamento para ${encodeURIComponent(product?.name || '')}`;
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const wpp = document.getElementById("wppContact");
+                if (wpp) {
+                    wpp.addEventListener("click", function(event) {
+                        gtag('event', 'conversion', {'send_to': 'AW-11418933953/yFEZCM-i0fgYEMG1_MQq'});
+                    });
+                }
+            });
+        </script>
+
+    </body>
+</html>

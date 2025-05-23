@@ -1,0 +1,235 @@
+.product-section {
+    background: #fff;
+    padding: 60px 0;
+    position: relative;
+}
+
+.product-section h2 {
+    color: #003854;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.product-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: #00A1C8;
+}
+
+.product-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr); /* 4 produtos por linha em telas grandes */
+}
+
+@media (max-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 produtos por linha */
+    }
+}
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 56, 84, 0.15);
+}
+
+.product-image-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    display: block;
+    cursor: pointer;
+}
+
+.product-image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image-container img {
+    transform: scale(1.05);
+}
+
+.product-content {
+    padding: 1rem;
+}
+
+.product-title {
+    color: #003854;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+}
+
+.product-title:hover h3 {
+    color: #00A1C8;
+}
+
+.product-title h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.product-description {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.product-specs {
+    color: #003854;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.product-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #00A1C8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.product-link:hover {
+    color: #003854;
+}
+
+.product-link i {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 produtos por linha em tablets */
+        gap: 1rem;
+    }
+
+    .product-card {
+        margin: 0 0.5rem;
+    }
+
+    .product-image-container {
+        padding-bottom: 75%; /* Aspecto 4:3 para melhor visualização */
+    }
+
+    .product-content {
+        padding: 1rem;
+    }
+
+    .product-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-description {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limita a 3 linhas */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .product-specs {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+
+    .product-link {
+        width: 100%;
+        padding: 0.8rem;
+        background: #00A1C8;
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    .product-link:hover {
+        background: #003854;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    /* Remove a animação de hover na imagem para melhor performance */
+    .product-card:hover .product-image-container img {
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* 1 produto por linha em mobile */
+    }
+
+    .product-card {
+        margin: 0 0.5rem;
+    }
+
+    .product-image-container {
+        padding-bottom: 66.67%; /* Aspecto 3:2 para telas menores */
+    }
+}
+
+.load-more {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.load-more-btn {
+    background: #00A1C8;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.load-more-btn:hover {
+    background: #003854;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .load-more-btn {
+        width: calc(100% - 2rem);
+        margin: 0 1rem;
+        justify-content: center;
+    }
+} 
