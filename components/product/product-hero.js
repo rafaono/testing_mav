@@ -5,17 +5,20 @@ class ProductHero extends HTMLElement {
     }
 
     connectedCallback() {
-        // Garante que o header está carregado antes
-        if (!document.querySelector('mav-header')) {
+        // Espera o script de produtos carregar
+        if (typeof mavProducts === 'undefined') {
             setTimeout(() => this.connectedCallback(), 100);
             return;
         }
 
         const params = new URLSearchParams(window.location.search);
         const slug = params.get('slug');
-        const product = mavProducts.find(p => p.slug === slug);
-
+        
+        // Verifica se o produto existe antes de tentar renderizar
+        const product = mavProducts?.find(p => p.slug === slug);
+        
         if (!product) {
+            console.error('Produto não encontrado:', slug);
             window.location.href = 'index.html';
             return;
         }
@@ -70,16 +73,18 @@ class ProductHero extends HTMLElement {
     async render(product) {
         this.currentProduct = product;
         const isMobile = window.innerWidth <= 768;
-        const titleSection = `<h1 class="product-hero__title">${product.name}</h1>`;
+        const titleSection = `<h1 class="product-hero__title">${product?.name || 'Produto não encontrado'}</h1>`;
 
+        // Tratamento seguro para o modelo 3D
         let model3d = '';
-        if (product.images?.model3d) {
+        if (product?.images?.model3d) {
             try {
                 model3d = `
                     <div class="product-hero__3d-container">
                         <model-viewer
                             src="${product.images.model3d}"
-                            poster="${product.images.thumbnail}"
+                            poster="${product.images.thumbnail || ''}"
+                            alt="${product.name}"
                             loading="lazy"
                             camera-controls
                             ar
@@ -88,18 +93,20 @@ class ProductHero extends HTMLElement {
                             touch-action="pan-y"
                             style="width: 100%; height: 450px; background: #f8f9fa;">
                             <div slot="poster">Carregando modelo 3D...</div>
+                            <div slot="error">Erro ao carregar modelo 3D</div>
                         </model-viewer>
                     </div>
                 `;
             } catch (error) {
-                console.error('❌ Erro ao renderizar modelo:', error);
-                model3d = `
+                console.error('Erro ao renderizar modelo:', error);
+                // Fallback para imagem
+                model3d = product.images?.thumbnail ? `
                     <div class="product-hero__3d-container">
                         <img src="${product.images.thumbnail}" 
                              alt="${product.name}" 
                              style="width: 100%; height: fit-content;">
                     </div>
-                `;
+                ` : '';
             }
         }
 
